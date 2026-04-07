@@ -196,7 +196,15 @@
         <input id="phase" oninput="generate()" />
 
         <label for="holland">Top 3 Holland Codes (Realistic, Investigative, Artistic, Social, Enterprising, and Conventional)</label>
-        <input id="holland" oninput="generate()" />
+       <label>Top 3 Holland Codes</label>
+<div style="display:flex; flex-wrap:wrap; gap:12px;">
+  <label><input type="checkbox" value="Realistic" onchange="handleHolland()"> Realistic</label>
+  <label><input type="checkbox" value="Investigative" onchange="handleHolland()"> Investigative</label>
+  <label><input type="checkbox" value="Artistic" onchange="handleHolland()"> Artistic</label>
+  <label><input type="checkbox" value="Social" onchange="handleHolland()"> Social</label>
+  <label><input type="checkbox" value="Enterprising" onchange="handleHolland()"> Enterprising</label>
+  <label><input type="checkbox" value="Conventional" onchange="handleHolland()"> Conventional</label>
+</div>
 
         <label for="interests">Interests, Clubs, Sports</label>
         <textarea id="interests" oninput="generate()"></textarea>
