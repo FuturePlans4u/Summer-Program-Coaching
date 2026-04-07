@@ -27,12 +27,14 @@
     h1 {
       margin-top: 0;
       color: #124734;
+      text-align: center;
     }
 
     .subtitle {
       color: #475569;
       margin-bottom: 22px;
       line-height: 1.5;
+      text-align: center;
     }
 
     .layout {
@@ -133,10 +135,98 @@
 
     .site-logo {
       display: block;
-      margin: 20px auto;
+      margin: 0 auto 18px auto;
       max-width: 420px;
       width: 100%;
       height: auto;
+    }
+
+    .holland-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .holland-header label {
+      margin: 0;
+    }
+
+    .holland-counter {
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      background: #eef4ff;
+      border: 1px solid #dbe7ff;
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+
+    .holland-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .holland-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .holland-option {
+      position: relative;
+      display: block;
+      cursor: pointer;
+    }
+
+    .holland-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      width: 0;
+      height: 0;
+    }
+
+    .holland-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 46px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1f2937;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .holland-option input:checked + .holland-pill {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.22);
+    }
+
+    .holland-option input:disabled + .holland-pill {
+      background: #f8fafc;
+      color: #94a3b8;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+
+    .selection-note {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 8px;
+      line-height: 1.4;
     }
 
     @media print {
@@ -148,7 +238,8 @@
       .form-section,
       .button-row,
       h1,
-      .subtitle {
+      .subtitle,
+      .site-logo {
         display: none !important;
       }
 
@@ -169,7 +260,7 @@
   </style>
 </head>
 <body>
-  <img src="./logo.png" class="site-logo" alt="Summer Coaching Notes Generator Logo">
+  <img src="logo.png" class="site-logo" alt="Summer Coaching Notes Generator Logo" />
 
   <div class="container">
     <h1>Summer Coaching Notes Generator</h1>
@@ -195,16 +286,44 @@
         <label for="phase">Phase (Discovery or Engagement + explanations)</label>
         <input id="phase" oninput="generate()" />
 
-        <label for="holland">Top 3 Holland Codes (Realistic, Investigative, Artistic, Social, Enterprising, and Conventional)</label>
-       <label>Top 3 Holland Codes</label>
-<div style="display:flex; flex-wrap:wrap; gap:12px;">
-  <label><input type="checkbox" value="Realistic" onchange="handleHolland()"> Realistic</label>
-  <label><input type="checkbox" value="Investigative" onchange="handleHolland()"> Investigative</label>
-  <label><input type="checkbox" value="Artistic" onchange="handleHolland()"> Artistic</label>
-  <label><input type="checkbox" value="Social" onchange="handleHolland()"> Social</label>
-  <label><input type="checkbox" value="Enterprising" onchange="handleHolland()"> Enterprising</label>
-  <label><input type="checkbox" value="Conventional" onchange="handleHolland()"> Conventional</label>
-</div>
+        <div class="holland-header">
+          <label>Top 3 Holland Codes</label>
+          <div class="holland-counter" id="hollandCounter">0 of 3 selected</div>
+        </div>
+
+        <div class="holland-grid">
+          <label class="holland-option">
+            <input type="checkbox" name="holland" value="Realistic" onchange="handleHollandChange()" />
+            <span class="holland-pill">Realistic</span>
+          </label>
+
+          <label class="holland-option">
+            <input type="checkbox" name="holland" value="Investigative" onchange="handleHollandChange()" />
+            <span class="holland-pill">Investigative</span>
+          </label>
+
+          <label class="holland-option">
+            <input type="checkbox" name="holland" value="Artistic" onchange="handleHollandChange()" />
+            <span class="holland-pill">Artistic</span>
+          </label>
+
+          <label class="holland-option">
+            <input type="checkbox" name="holland" value="Social" onchange="handleHollandChange()" />
+            <span class="holland-pill">Social</span>
+          </label>
+
+          <label class="holland-option">
+            <input type="checkbox" name="holland" value="Enterprising" onchange="handleHollandChange()" />
+            <span class="holland-pill">Enterprising</span>
+          </label>
+
+          <label class="holland-option">
+            <input type="checkbox" name="holland" value="Conventional" onchange="handleHollandChange()" />
+            <span class="holland-pill">Conventional</span>
+          </label>
+        </div>
+
+        <div class="selection-note">Choose up to 3. Output will stay in RIASEC order.</div>
 
         <label for="interests">Interests, Clubs, Sports</label>
         <textarea id="interests" oninput="generate()"></textarea>
@@ -235,10 +354,52 @@
   </div>
 
   <script>
+    const hollandOrder = [
+      "Realistic",
+      "Investigative",
+      "Artistic",
+      "Social",
+      "Enterprising",
+      "Conventional"
+    ];
+
     function buildSection(title, value) {
       const cleaned = value.trim();
       if (cleaned === "") return "";
       return `\n\n${title}:\n${cleaned}`;
+    }
+
+    function getSelectedHollandCodes() {
+      const checkedValues = Array.from(
+        document.querySelectorAll('input[name="holland"]:checked')
+      ).map(box => box.value);
+
+      return hollandOrder.filter(code => checkedValues.includes(code));
+    }
+
+    function updateHollandCounter() {
+      const selectedCount = getSelectedHollandCodes().length;
+      document.getElementById("hollandCounter").innerText = `${selectedCount} of 3 selected`;
+    }
+
+    function updateHollandAvailability() {
+      const checkedBoxes = document.querySelectorAll('input[name="holland"]:checked');
+      const allBoxes = document.querySelectorAll('input[name="holland"]');
+      const selectedCount = checkedBoxes.length;
+
+      allBoxes.forEach(box => {
+        if (!box.checked) {
+          box.disabled = selectedCount >= 3;
+        } else {
+          box.disabled = false;
+        }
+      });
+    }
+
+    function handleHollandChange() {
+      updateHollandCounter();
+      updateHollandAvailability();
+      generate();
     }
 
     function generate() {
@@ -247,7 +408,7 @@
       const career3 = document.getElementById("career3").value.trim();
       const summer = document.getElementById("summer").value.trim();
       const phase = document.getElementById("phase").value.trim();
-      const holland = document.getElementById("holland").value.trim();
+      const holland = getSelectedHollandCodes().join(", ");
       const interests = document.getElementById("interests").value.trim();
       const resources = document.getElementById("resources").value.trim();
       const next = document.getElementById("next").value.trim();
@@ -281,19 +442,34 @@
     }
 
     function clearForm() {
-      const ids = [
-        "career1", "career2", "career3",
-        "summer", "phase", "holland", "interests",
-        "resources", "next", "summary"
+      const textIds = [
+        "career1",
+        "career2",
+        "career3",
+        "summer",
+        "phase",
+        "interests",
+        "resources",
+        "next",
+        "summary"
       ];
 
-      ids.forEach(id => {
+      textIds.forEach(id => {
         document.getElementById(id).value = "";
       });
 
+      document.querySelectorAll('input[name="holland"]').forEach(box => {
+        box.checked = false;
+        box.disabled = false;
+      });
+
+      updateHollandCounter();
+      updateHollandAvailability();
       generate();
     }
 
+    updateHollandCounter();
+    updateHollandAvailability();
     generate();
   </script>
 </body>
