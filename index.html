@@ -111,15 +111,13 @@
     }
 
     .generate-btn { background: #2563eb; }
-    .generate-btn:hover { background: #1d4ed8; }
-
     .copy-btn { background: #0f766e; }
-    .copy-btn:hover { background: #115e59; }
-
     .clear-btn { background: #dc2626; }
-    .clear-btn:hover { background: #b91c1c; }
-
     .print-btn { background: #64748b; }
+
+    .generate-btn:hover { background: #1d4ed8; }
+    .copy-btn:hover { background: #115e59; }
+    .clear-btn:hover { background: #b91c1c; }
     .print-btn:hover { background: #475569; }
 
     .bluebox {
@@ -151,8 +149,8 @@
       flex-wrap: wrap;
     }
 
-    .holland-header label {
-      margin: 0;
+    .holland-header .label-title {
+      font-weight: 700;
     }
 
     .holland-counter {
@@ -169,6 +167,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
+      margin-top: 8px;
     }
 
     @media (max-width: 700px) {
@@ -183,7 +182,7 @@
       cursor: pointer;
     }
 
-    .holland-option input {
+    .holland-option input[type="checkbox"] {
       position: absolute;
       opacity: 0;
       pointer-events: none;
@@ -208,14 +207,14 @@
       user-select: none;
     }
 
-    .holland-option input:checked + .holland-pill {
+    .holland-option input[type="checkbox"]:checked + .holland-pill {
       background: #2563eb;
       color: white;
       border-color: #2563eb;
       box-shadow: 0 4px 10px rgba(37, 99, 235, 0.22);
     }
 
-    .holland-option input:disabled + .holland-pill {
+    .holland-option input[type="checkbox"]:disabled + .holland-pill {
       background: #f8fafc;
       color: #94a3b8;
       border-color: #e2e8f0;
@@ -260,7 +259,7 @@
   </style>
 </head>
 <body>
-  <img src="logo.png" class="site-logo" alt="Summer Coaching Notes Generator Logo" />
+  <img src="logo.png" class="site-logo" alt="Summer Coaching Notes Generator Logo">
 
   <div class="container">
     <h1>Summer Coaching Notes Generator</h1>
@@ -272,58 +271,58 @@
     <div class="layout">
       <div class="form-section">
         <label for="career1">Top Career #1</label>
-        <input id="career1" oninput="generate()" />
+        <input id="career1" type="text" oninput="generate()">
 
         <label for="career2">Top Career #2</label>
-        <input id="career2" oninput="generate()" />
+        <input id="career2" type="text" oninput="generate()">
 
         <label for="career3">Top Career #3</label>
-        <input id="career3" oninput="generate()" />
+        <input id="career3" type="text" oninput="generate()">
 
         <label for="summer">First Choice Summer Program</label>
         <textarea id="summer" oninput="generate()"></textarea>
 
         <label for="phase">Phase (Discovery or Engagement + explanations)</label>
-        <input id="phase" oninput="generate()" />
+        <input id="phase" type="text" oninput="generate()">
 
         <div class="holland-header">
-          <label>Top 3 Holland Codes</label>
+          <div class="label-title">Top 3 Holland Codes</div>
           <div class="holland-counter" id="hollandCounter">0 of 3 selected</div>
         </div>
 
         <div class="holland-grid">
           <label class="holland-option">
-            <input type="checkbox" name="holland" value="Realistic" onchange="handleHollandChange()" />
+            <input type="checkbox" name="holland" value="Realistic">
             <span class="holland-pill">Realistic</span>
           </label>
 
           <label class="holland-option">
-            <input type="checkbox" name="holland" value="Investigative" onchange="handleHollandChange()" />
+            <input type="checkbox" name="holland" value="Investigative">
             <span class="holland-pill">Investigative</span>
           </label>
 
           <label class="holland-option">
-            <input type="checkbox" name="holland" value="Artistic" onchange="handleHollandChange()" />
+            <input type="checkbox" name="holland" value="Artistic">
             <span class="holland-pill">Artistic</span>
           </label>
 
           <label class="holland-option">
-            <input type="checkbox" name="holland" value="Social" onchange="handleHollandChange()" />
+            <input type="checkbox" name="holland" value="Social">
             <span class="holland-pill">Social</span>
           </label>
 
           <label class="holland-option">
-            <input type="checkbox" name="holland" value="Enterprising" onchange="handleHollandChange()" />
+            <input type="checkbox" name="holland" value="Enterprising">
             <span class="holland-pill">Enterprising</span>
           </label>
 
           <label class="holland-option">
-            <input type="checkbox" name="holland" value="Conventional" onchange="handleHollandChange()" />
+            <input type="checkbox" name="holland" value="Conventional">
             <span class="holland-pill">Conventional</span>
           </label>
         </div>
 
-        <div class="selection-note">Choose up to 3. Output will stay in RIASEC order.</div>
+        <div class="selection-note">Choose up to 3. Output stays in RIASEC order.</div>
 
         <label for="interests">Interests, Clubs, Sports</label>
         <textarea id="interests" oninput="generate()"></textarea>
@@ -366,40 +365,26 @@
     function buildSection(title, value) {
       const cleaned = value.trim();
       if (cleaned === "") return "";
-      return `\n\n${title}:\n${cleaned}`;
+      return "\\n\\n" + title + ":\\n" + cleaned;
     }
 
     function getSelectedHollandCodes() {
-      const checkedValues = Array.from(
-        document.querySelectorAll('input[name="holland"]:checked')
-      ).map(box => box.value);
+      const checked = Array.from(document.querySelectorAll('input[name="holland"]:checked'))
+        .map(box => box.value);
 
-      return hollandOrder.filter(code => checkedValues.includes(code));
+      return hollandOrder.filter(code => checked.includes(code));
     }
 
-    function updateHollandCounter() {
-      const selectedCount = getSelectedHollandCodes().length;
-      document.getElementById("hollandCounter").innerText = `${selectedCount} of 3 selected`;
-    }
-
-    function updateHollandAvailability() {
-      const checkedBoxes = document.querySelectorAll('input[name="holland"]:checked');
-      const allBoxes = document.querySelectorAll('input[name="holland"]');
+    function updateHollandUI() {
+      const allBoxes = Array.from(document.querySelectorAll('input[name="holland"]'));
+      const checkedBoxes = allBoxes.filter(box => box.checked);
       const selectedCount = checkedBoxes.length;
 
-      allBoxes.forEach(box => {
-        if (!box.checked) {
-          box.disabled = selectedCount >= 3;
-        } else {
-          box.disabled = false;
-        }
-      });
-    }
+      document.getElementById("hollandCounter").innerText = selectedCount + " of 3 selected";
 
-    function handleHollandChange() {
-      updateHollandCounter();
-      updateHollandAvailability();
-      generate();
+      allBoxes.forEach(box => {
+        box.disabled = !box.checked && selectedCount >= 3;
+      });
     }
 
     function generate() {
@@ -414,10 +399,10 @@
       const next = document.getElementById("next").value.trim();
       const summary = document.getElementById("summary").value.trim();
 
-      let result = `Top 3 Careers:
-1. ${career1}
-2. ${career2}
-3. ${career3}`;
+      let result = "Top 3 Careers:\\n" +
+        "1. " + career1 + "\\n" +
+        "2. " + career2 + "\\n" +
+        "3. " + career3;
 
       result += buildSection("First Choice Summer Program", summer);
       result += buildSection("Phase", phase);
@@ -442,7 +427,7 @@
     }
 
     function clearForm() {
-      const textIds = [
+      const ids = [
         "career1",
         "career2",
         "career3",
@@ -454,7 +439,7 @@
         "summary"
       ];
 
-      textIds.forEach(id => {
+      ids.forEach(id => {
         document.getElementById(id).value = "";
       });
 
@@ -463,13 +448,18 @@
         box.disabled = false;
       });
 
-      updateHollandCounter();
-      updateHollandAvailability();
+      updateHollandUI();
       generate();
     }
 
-    updateHollandCounter();
-    updateHollandAvailability();
+    document.querySelectorAll('input[name="holland"]').forEach(box => {
+      box.addEventListener("change", function () {
+        updateHollandUI();
+        generate();
+      });
+    });
+
+    updateHollandUI();
     generate();
   </script>
 </body>
