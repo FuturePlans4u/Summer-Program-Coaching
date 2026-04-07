@@ -365,7 +365,7 @@
     function buildSection(title, value) {
       const cleaned = value.trim();
       if (cleaned === "") return "";
-      return "\\n\\n" + title + ":\\n" + cleaned;
+     return `\n\n${title}:\n${cleaned}`;
     }
 
     function getSelectedHollandCodes() {
@@ -399,10 +399,10 @@
       const next = document.getElementById("next").value.trim();
       const summary = document.getElementById("summary").value.trim();
 
-      let result = "Top 3 Careers:\\n" +
-        "1. " + career1 + "\\n" +
-        "2. " + career2 + "\\n" +
-        "3. " + career3;
+      let result = `Top 3 Careers:
+1. ${career1}
+2. ${career2}
+3. ${career3}`;
 
       result += buildSection("First Choice Summer Program", summer);
       result += buildSection("Phase", phase);
