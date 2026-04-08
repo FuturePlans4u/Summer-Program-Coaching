@@ -10,32 +10,119 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #f4f6fb;
+  background:
+    radial-gradient(circle at top left, rgba(191, 219, 254, 0.45), transparent 32%),
+    radial-gradient(circle at top right, rgba(220, 252, 231, 0.38), transparent 30%),
+    linear-gradient(135deg, #f8fbff 0%, #edf7f1 52%, #f9fbff 100%);
   padding: 30px;
   margin: 0;
   color: #1f2937;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* ✅ LOGO STYLE (correct place now) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.13;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23b7c7d9' stroke-width='1.1'%3E%3Cpath d='M20 110c18-38 44-56 80-62'/%3E%3Cpath d='M60 130c24-34 52-52 92-56'/%3E%3Cpath d='M35 55c20 10 34 24 42 46'/%3E%3Cpath d='M105 30c-4 18-2 34 8 50'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  background-repeat: repeat;
+  z-index: 0;
+}
+
+.page-shell {
+  max-width: 1620px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1150px) 260px;
+  gap: 24px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-sidebar {
+  position: sticky;
+  top: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(219, 234, 254, 0.95);
+  border-radius: 20px;
+  padding: 18px 16px;
+  box-shadow:
+    0 14px 30px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.quote-sidebar h3 {
+  margin: 0 0 14px 0;
+  font-size: 18px;
+  color: #14532d;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+.quote-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quote-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%);
+  border: 1px solid #dbe7ff;
+  border-left: 6px solid #93c5fd;
+  border-radius: 16px;
+  padding: 16px 14px;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+}
+
+.quote-text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #334155;
+  margin-bottom: 10px;
+}
+
+.quote-author {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-align: right;
+  letter-spacing: 0.2px;
+}
+
 .site-logo {
   display: block;
-  margin: 20px auto;
+  margin: 12px auto 20px auto;
   max-width: 420px;
+  filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.10));
 }
 
 .container {
-  max-width: 1150px;
-  margin: auto;
-  background: white;
-  padding: 28px;
-  border-radius: 14px;
-  box-shadow: 0 0 12px rgba(0,0,0,.10);
+  width: 100%;
+  background: rgba(255,255,255,0.94);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(219, 234, 254, 0.95);
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
 }
 
 h1 {
   text-align: center;
-  color: #124734;
+  color: #14532d;
   margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 32px;
+  letter-spacing: 0.2px;
 }
 
 .layout {
@@ -46,35 +133,56 @@ h1 {
 
 .form-section,
 .output-section {
-  background: #f9fbff;
+  background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
   border: 1px solid #dbe7ff;
-  border-radius: 14px;
-  padding: 20px;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
 }
 
 label {
   font-weight: 700;
   margin-top: 12px;
+  margin-bottom: 7px;
   display: block;
+  color: #1e293b;
 }
 
 input, textarea {
   width: 100%;
-  padding: 10px;
+  padding: 11px 13px;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  color: #1f2937;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
 }
 
 textarea {
   min-height: 90px;
+  resize: vertical;
 }
 
 .bluebox {
-  background: #dbe8f7;
-  padding: 20px;
-  border-radius: 10px;
+  background: linear-gradient(180deg, #e8f1fb 0%, #dce9f7 100%);
+  padding: 22px;
+  border-radius: 16px;
   white-space: pre-wrap;
   min-height: 650px;
+  line-height: 1.68;
+  font-size: 15px;
+  color: #1e293b;
+  border: 1px solid #bfd3ea;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
 }
 
 .button-row {
@@ -86,18 +194,24 @@ textarea {
 
 button {
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   color: white;
   font-weight: bold;
   cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
 }
 
-.copy-btn { background: #0f766e; }
-.clear-btn { background: #dc2626; }
-.print-btn { background: #64748b; }
+button:hover {
+  transform: translateY(-1px);
+}
 
-/* Phase */
+.copy-btn { background: linear-gradient(180deg, #0f766e 0%, #0d5f58 100%); }
+.clear-btn { background: linear-gradient(180deg, #dc2626 0%, #b91c1c 100%); }
+.print-btn { background: linear-gradient(180deg, #64748b 0%, #475569 100%); }
+
 .phase-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -107,25 +221,35 @@ button {
 .phase-btn {
   padding: 12px;
   border: 2px solid #94a3b8;
-  background: white;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  color: #1f2937;
   cursor: pointer;
   font-weight: bold;
+  border-radius: 12px;
+  box-shadow: none;
 }
 
 .phase-btn.selected {
-  background: #2563eb;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
   color: white;
+  border-color: #1d4ed8;
 }
 
 .phase-description {
   margin-top: 10px;
   font-size: 14px;
-  background: #f8fafc;
-  padding: 10px;
-  border-radius: 8px;
+  background: linear-gradient(180deg, #fbfdff 0%, #f8fafc 100%);
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #dbe7ff;
+  color: #334155;
+  line-height: 1.58;
 }
 
-/* Holland */
+.phase-description strong {
+  color: #1e3a8a;
+}
+
 .holland-grid {
   display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -140,148 +264,396 @@ button {
   padding: 10px;
   text-align: center;
   cursor: pointer;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  color: #1f2937;
+  font-weight: 700;
+  transition: 0.15s ease;
 }
 
 .holland-option input:checked + .holland-pill {
-  background: #2563eb;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
   color: white;
+  border-color: #2563eb;
 }
 
 .rank {
   display:none;
+  margin-right: 6px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .holland-pill.has-rank .rank {
   display:inline-block;
+}
+
+@media (max-width: 1250px) {
+  .page-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-sidebar {
+    position: static;
+  }
+
+  .left-sidebar,
+  .right-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 950px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .holland-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .phase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  body::before,
+  .quote-sidebar,
+  .form-section {
+    display: none !important;
+  }
+
+  .page-shell,
+  .container,
+  .output-section {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    display: block;
+    background: white;
+  }
+
+  .bluebox {
+    background: white;
+    min-height: auto;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ✅ LOGO IN CORRECT PLACE -->
-<img src="logo.png" class="site-logo">
+<div class="page-shell">
+  <aside class="quote-sidebar left-sidebar">
+    <h3>Positive Quotes</h3>
+    <div class="quote-list" id="leftQuotes"></div>
+  </aside>
 
-<div class="container">
-<h1>Summer Coaching Notes Generator</h1>
+  <main>
+    <img src="logo.png" class="site-logo" alt="Logo">
 
-<div class="layout">
+    <div class="container">
+      <h1>Summer Coaching Notes Generator</h1>
 
-<div class="form-section">
+      <div class="layout">
+        <div class="form-section">
 
-<label>Top Career #1</label>
-<input id="career1" oninput="generate()">
+          <label>Top Career #1</label>
+          <input id="career1" oninput="generate()">
 
-<label>Top Career #2</label>
-<input id="career2" oninput="generate()">
+          <label>Top Career #2</label>
+          <input id="career2" oninput="generate()">
 
-<label>Top Career #3</label>
-<input id="career3" oninput="generate()">
+          <label>Top Career #3</label>
+          <input id="career3" oninput="generate()">
 
-<label>First Choice Summer Program</label>
-<textarea id="summer" oninput="generate()"></textarea>
+          <label>First Choice Summer Program</label>
+          <textarea id="summer" oninput="generate()"></textarea>
 
-<label>Phase</label>
-<div class="phase-grid">
-<button class="phase-btn" onclick="setPhase('Discovery', this)">Discovery</button>
-<button class="phase-btn" onclick="setPhase('Engagement', this)">Engagement</button>
-</div>
+          <label>Phase</label>
+          <div class="phase-grid">
+            <button type="button" class="phase-btn" onclick="setPhase('Discovery', this)">Discovery</button>
+            <button type="button" class="phase-btn" onclick="setPhase('Engagement', this)">Engagement</button>
+          </div>
 
-<div class="phase-description">
-<strong>Discovery:</strong> Still exploring career interests.<br><br>
-<strong>Engagement:</strong> Actively learning and engaging in career opportunities.
-</div>
+          <div class="phase-description">
+            <strong>Discovery:</strong> Still exploring career interests.<br><br>
+            <strong>Engagement:</strong> Actively learning and engaging in career opportunities.
+          </div>
 
-<input id="phase" type="hidden">
+          <input id="phase" type="hidden">
 
-<label>Top 3 Holland Codes</label>
-<div class="holland-grid">
+          <label>Top 3 Holland Codes</label>
+          <div class="holland-grid">
 
-<label class="holland-option">
-<input type="checkbox" value="Realistic">
-<div class="holland-pill"><span class="rank"></span>Realistic</div>
-</label>
+            <label class="holland-option">
+              <input type="checkbox" value="Realistic">
+              <div class="holland-pill"><span class="rank"></span>Realistic</div>
+            </label>
 
-<label class="holland-option">
-<input type="checkbox" value="Investigative">
-<div class="holland-pill"><span class="rank"></span>Investigative</div>
-</label>
+            <label class="holland-option">
+              <input type="checkbox" value="Investigative">
+              <div class="holland-pill"><span class="rank"></span>Investigative</div>
+            </label>
 
-<label class="holland-option">
-<input type="checkbox" value="Artistic">
-<div class="holland-pill"><span class="rank"></span>Artistic</div>
-</label>
+            <label class="holland-option">
+              <input type="checkbox" value="Artistic">
+              <div class="holland-pill"><span class="rank"></span>Artistic</div>
+            </label>
 
-<label class="holland-option">
-<input type="checkbox" value="Social">
-<div class="holland-pill"><span class="rank"></span>Social</div>
-</label>
+            <label class="holland-option">
+              <input type="checkbox" value="Social">
+              <div class="holland-pill"><span class="rank"></span>Social</div>
+            </label>
 
-<label class="holland-option">
-<input type="checkbox" value="Enterprising">
-<div class="holland-pill"><span class="rank"></span>Enterprising</div>
-</label>
+            <label class="holland-option">
+              <input type="checkbox" value="Enterprising">
+              <div class="holland-pill"><span class="rank"></span>Enterprising</div>
+            </label>
 
-<label class="holland-option">
-<input type="checkbox" value="Conventional">
-<div class="holland-pill"><span class="rank"></span>Conventional</div>
-</label>
+            <label class="holland-option">
+              <input type="checkbox" value="Conventional">
+              <div class="holland-pill"><span class="rank"></span>Conventional</div>
+            </label>
 
-</div>
+          </div>
 
-<label>Interests</label>
-<textarea id="interests" oninput="generate()"></textarea>
+          <label>Interests</label>
+          <textarea id="interests" oninput="generate()"></textarea>
 
-<label>Resources</label>
-<textarea id="resources" oninput="generate()"></textarea>
+          <label>Resources</label>
+          <textarea id="resources" oninput="generate()"></textarea>
 
-<label>Next Step</label>
-<textarea id="next" oninput="generate()"></textarea>
+          <label>Next Step</label>
+          <textarea id="next" oninput="generate()"></textarea>
 
-<label>Summary</label>
-<textarea id="summary" oninput="generate()"></textarea>
+          <label>Summary</label>
+          <textarea id="summary" oninput="generate()"></textarea>
 
-<div class="button-row">
-<button class="copy-btn" onclick="copyText()">Copy</button>
-<button class="clear-btn" onclick="clearForm()">Clear</button>
-<button class="print-btn" onclick="window.print()">Print</button>
-</div>
+          <div class="button-row">
+            <button class="copy-btn" type="button" onclick="copyText()">Copy</button>
+            <button class="clear-btn" type="button" onclick="clearForm()">Clear</button>
+            <button class="print-btn" type="button" onclick="window.print()">Print</button>
+          </div>
 
-</div>
+        </div>
 
-<div class="output-section">
-<div id="output" class="bluebox"></div>
-</div>
+        <div class="output-section">
+          <div id="output" class="bluebox"></div>
+        </div>
 
-</div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="quote-sidebar right-sidebar">
+    <h3>Encouragement</h3>
+    <div class="quote-list" id="rightQuotes"></div>
+  </aside>
 </div>
 
 <script>
 let phase = "";
 let hollandOrder = [];
 
-function setPhase(val, btn){
-  phase = val;
-  document.getElementById("phase").value = val;
+const quotes = [
+  { text: "A coaching culture is one where everyone is committed to each other’s success.", author: "Brian Underhill" },
+  { text: "A coach is someone who can give correction without causing resentment.", author: "John Wooden" },
+  { text: "A coach is someone that sees beyond your limits and guides you to greatness.", author: "Michael Jordan" },
+  { text: "A coach is someone who tells you what you don’t want to hear, who has you see what you don’t want to see, so you can be who you have always known you could be.", author: "Tom Landry" },
+  { text: "A coach, on the other hand [when compared to counseling], helps us assess the present so that we can operate more effectively in the future.", author: "Andy Stanley" },
+  { text: "A good coach will make his players see what they can be rather than what they are.", author: "Ara Parseghian" },
+  { text: "A good coach can change a game. A great coach can change a life.", author: "Bob Wooden" },
+  { text: "A grateful mind is a great mind which eventually attracts to itself great things.", author: "Plato" },
+  { text: "A great coach can lead you to a place where you don’t need him (her) anymore.", author: "Andre Agassi" },
+  { text: "A great coach is not a guru. It's simply someone who enables you to think, explore and discover what or where you currently are, what or where you want to be and how to get there.", author: "Manie Bosman" },
+  { text: "A great coach not only inspires but supports and encourages others to get results.", author: "Richard Schuy" },
+  { text: "A journey of a thousand miles begins with a single step.", author: "Chinese Proverb" },
+  { text: "A life coach does for the rest of your life what a personal trainer does for your health and fitness.", author: "Elaine MacDonald" },
+  { text: "All coaching is, is taking someone where they can’t take themself.", author: "Bill McCartney" },
+  { text: "A mentor is someone who sees more talent and ability within you than you see in yourself and helps bring it out of you.", author: "Bob Proctor" },
+  { text: "A mentor is someone who allows you to see the hope inside yourself.", author: "Oprah Winfrey" },
+  { text: "A mentor or coach is often a good source of tough love. This type of person will often keep pushing you to perform at your best, even when you think you can’t get any better.", author: "Ace McCloud" },
+  { text: "A positive attitude leads to a positive action, which then yields a positive result. That’s how the cycle always goes.", author: "Kevin J. Donaldson" },
+  { text: "As coaches, we equip people to be in touch with their best selves.", author: "Clyde Lowstuter" },
+  { text: "As coaches, we help people figure out what they really want. We do it by asking powerful questions, holding space and reminding our clients of their brilliance. We hold faith for them when they can’t hold it for themselves. And that my friends, is part of the magic of coaching.", author: "Dan Millman" },
+  { text: "At times, we all become overwhelmed. An effective coach, however, has to be able to help people see the end goal, to take one step at a time, rather than being overwhelmed by the issues.", author: "Byron and Catherine Pulsifer" },
+  { text: "Bad coaching comes from the ego. Good coaching comes from the heart.", author: "John Wooden" },
+  { text: "Chains of habit are too light to be felt until they are too heavy to be broken.", author: "Samuel Johnson" },
+  { text: "Change can be scary, but you know what’s scarier? Allowing fear to stop you from growing, evolving, and progressing.", author: "Mandy Hal" },
+  { text: "Character is simply habit long continued.", author: "Plato" },
+  { text: "Choosing to be curious is choosing to be vulnerable because it requires us to surrender to uncertainty.", author: "Brené Brown" },
+  { text: "Coaches have to watch for what they don’t want to see and listen to what they don’t want to hear.", author: "John Madden" },
+  { text: "Coaching culture creates an environment where everyone is committed to continuous learning and improvement.", author: "Jack Welch" },
+  { text: "Coaching helps people stretch themselves in different ways to reach objectives that enhance and give new direction and meaning to their personal and professional lives.", author: "Cinnie Noble" },
+  { text: "Coaching helps you take stock of where you are now in all aspects of your life, and how that compares to where you would like to be.", author: "Elaine MacDonald" },
+  { text: "Coaching is about enabling individuals to make conscious decisions and empowering them to become leaders in their own lives.", author: "Maria Nemeth" },
+  { text: "Coaching is about helping clients unlock the treasure-chest of their lives – worth bearing in mind then that diamonds are made from coal under pressure and it’s the grit in the oyster which creates the pearls.", author: "Sarah Durrant" },
+  { text: "Coaching is an art, and it’s far easier said than done. It takes courage to ask a question rather than offer up advice, provide an answer, or unleash a solution.", author: "Brene Brown" },
+  { text: "Coaching is a profession of love. You can’t coach people unless you love them.", author: "Eddie Robison" },
+  { text: "Coaching is not about giving advice. It’s about guiding the individual to find their own answers.", author: "Shams Rahman" },
+  { text: "Coaching is not a job, it’s a privilege.", author: "Lee Corso" },
+  { text: "Coaching is not just about how to do something; it’s about how to be someone.", author: "Esther Derby" },
+  { text: "Coaching is not just for problems but for the improvement of your best.", author: "Michael Bungay Stanier" },
+  { text: "Coaching is not therapy. It is product development, with you as the product.", author: "Fast Company" },
+  { text: "Coaching is not teaching at all, but is about creating the conditions for learning and growing.", author: "John Whitmore" },
+  { text: "Coaching is one of the most effective leadership styles that can transform, empower and unlock people’s potential. Ask more, give advice less, and elevate your impact forever.", author: "Farshad Asl" },
+  { text: "Coaching is the art of influencing people’s behavior to bring out the best in them.", author: "James Flaherty" },
+  { text: "Coaching is the bridge that connects untapped potential to extraordinary achievements.", author: "Maxime Lagacé" },
+  { text: "Coaching is the catalyst for transformation.", author: "Vikram Kapoor" },
+  { text: "Coaching is the most important servant/leadership element in helping people accomplish their goals.", author: "Bill Hybels" },
+  { text: "Coaching is the universal language of change and learning.", author: "CNN" },
+  { text: "Coaching is unlocking people’s potential to maximize their own performance. It is more often helping them to learn rather than teaching them.", author: "John Whitmore" },
+  { text: "Coaching will become the model for leaders in the future … I am certain that leadership can be learned and that terrific coaches … facilitate learning.", author: "Warren Bennis" },
+  { text: "Coaching works because it’s all about you. When you connect with what you really want and why – and take action – magical things can happen.", author: "Emma" },
+  { text: "Coaching works best with high potential people who are willing to make a concerted effort to change.", author: "Marshall Goldsmith" },
+  { text: "Deep listening leads to powerful questioning which can lead to new insight and discovery, not the other way around.", author: "Manie Bosman" },
+  { text: "Does coaching work? Yes. Good coaches provide a truly important service. They tell you the truth when no one else will.", author: "Jack Welch" },
+  { text: "Don’t see other coaches as competition. When you believe that a rising tide raises all ships it primes you to create awesome, fun and profitable joint ventures.", author: "Unknown" },
+  { text: "Each person holds so much power within themselves that needs to be let out. Sometimes they just need a little nudge, a little direction, a little support, a little coaching, and the greatest things can happen.", author: "Pete Carroll" },
+  { text: "Everyone needs a coach. It doesn't matter whether you're a basketball player, a tennis player, a gymnast, or a bridge player.", author: "Bill Gates" },
+  { text: "Everything in coaching hinges on listening because what we are listening for affects where we are speaking from and unfolds how we are being with and for each other.", author: "Marilyn Atkinson" },
+  { text: "Examine your self-talk. Never speak to yourself more harshly than you would to a small child.", author: "Domonique Bertolucci" },
+  { text: "Executive coaching is about realizing potential, both individually and organizationally.", author: "Catherine J. Manning" },
+  { text: "Failing to follow up made any approach to coaching ineffective.", author: "Marshall Goldsmith" },
+  { text: "Failure is good. It's fertilizer. Everything I've learned about coaching, I've learned from making mistakes.", author: "Rick Pitino" },
+  { text: "Feedback is an opportunity for connection, learning, and growth, but it requires courage and vulnerability.", author: "Brene Brown" },
+  { text: "Good coaches provide a truly important service. They tell you the truth when no one else will.", author: "Jack Welch" },
+  { text: "Great coaches help you see what you can be, not just what you are.", author: "Ara Parseghian" },
+  { text: "Growth and comfort do not coexist.", author: "Ginni Rometty" },
+  { text: "Have an attitude of service. The more you serve, the more people will grow to trust you.", author: "Candy Motzek" },
+  { text: "I absolutely believe that people, unless coached, never reach their maximum capabilities.", author: "Bob Nardelli" },
+  { text: "I believe that wherever there is mastery, coaching is occurring and whenever coaching is done, mastery will be the outcome.", author: "Andrea J. Lee" },
+  { text: "If it doesn’t challenge you, it won’t change you.", author: "Fred DeVito" },
+  { text: "If you want to be happy, set a goal that commands your thoughts, liberates your energy, and inspires your hopes.", author: "Andrew Carnegie" },
+  { text: "I have only one understanding of development and of making success, and that’s by going step by step.", author: "Jurgen Klopp" },
+  { text: "I learned this, at least, by my experiment; that if one advances confidently in the direction of his dreams, and endeavours to the life which he has imagined, he will meet with a success unexpected in common hours.", author: "Henry David Thoreau" },
+  { text: "I'll bet most of the companies that are in life-or-death battles got into that kind of trouble because they didn't pay enough attention to developing their leaders.", author: "Wayne Calloway" },
+  { text: "In a coaching culture, people understand that their success is interconnected with the success of others.", author: "David Clutterbuck" },
+  { text: "In a growth mindset, challenges are exciting rather than threatening. So rather than thinking, oh, I’m going to reveal my weaknesses, you say, wow, here’s a chance to grow.", author: "Carol Dweck" },
+  { text: "I never cease to be amazed at the power of the coaching process to draw out the skills or talent that was previously hidden within an individual, and which invariably finds a way to solve a problem previously thought unsolvable.", author: "John Russell" },
+  { text: "Insight without action is worthless.", author: "Marie Forleo" },
+  { text: "It doesn't matter how saturated the coaching industry is. If the universe has called you to it, there's plenty of room for you.", author: "Candy Motzek" },
+  { text: "Just identify the very first physical action you need to take, and do it.", author: "Steve Backley" },
+  { text: "Life coaching is all about empowerment, personal growth, and positive change.", author: "Nancy Salamone" },
+  { text: "Life coaching is a partnership that aims to inspire and empower people to maximize their personal and professional potential.", author: "Gail Kenny" },
+  { text: "Life is constantly bringing us challenges and opportunities. When we have the courage to step up to the challenges and seize the opportunities we move forward. As a coach, you can help others make this kind of progress.", author: "Chad Hall" },
+  { text: "Life is growth. If we stop growing, technically and spiritually, we are as good as dead.", author: "Morihei Ueshiba" },
+  { text: "Mentoring is a brain to pick, an ear to listen, and a push in the right direction.", author: "John C. Crosby" },
+  { text: "My best investment is the money I’ve spent developing myself, via books, workshops and coaching. Leadership begins within, and to have a better career, start by building a better you.", author: "Robin S. Sharma" },
+  { text: "Once a man has made a commitment to a way of life, he puts the greatest strength in the world behind him. It’s something we call heart power. Once a man has made this commitment, nothing will stop him short of success.", author: "Vince Lombardi" },
+  { text: "Once seen as the last step for an executive about to fall off the ladder, leadership coaches now help smooth a promotion, teach outsiders about their new culture, and tune up talent.", author: "CNN Money" },
+  { text: "One of the most exciting things about coaching is the buzz you get when you push out of your comfort zone, come up with a plan and put it into action! Life takes on a whole new meaning as you re-create your life the way you want it.", author: "Emma-Louise Elsey" },
+  { text: "Our presence is a present to the people we coach.", author: "Peter Chee" },
+  { text: "People have a reservoir of talent worth discovering. They just have to be given the opportunity to discover it in themselves.", author: "Ricardo Semler" },
+  { text: "People who want a change, are the people who pay for results. They are the ones who become your coaching clients.", author: "Candy Motzek" },
+  { text: "Perfectionism is a lost cause. Focus your energy on being the best you can be.", author: "Domonique Bertolucci" },
+  { text: "Probably my best quality as a coach is that I ask a lot of challenging questions and let the person come up with the answer.", author: "Phil Dixon" },
+  { text: "Rituals are a powerful way for you to consciously create new habits that you want to embed in your life.", author: "Candy Motzek" },
+  { text: "See people in the light of their potential, not their problems.", author: "Ifeanyi Enoch Onuoha" },
+  { text: "Self-development is a higher duty than self-sacrifice.", author: "Elizabeth Cady Stanton" },
+  { text: "Setting a goal is not the main thing. It is deciding how you will go about achieving it and staying with that plan.", author: "Tom Landry" },
+  { text: "Simply put, coaching is where you work with someone to connect with yourself, redesign your environment and your life, and then take action to implement it!", author: "Emma-Louise Elsey" },
+  { text: "Spring is the best life coach: It gives you all the energy you want, all the positive thoughts you wish and all the boldness you need!", author: "Mehmet Murat ildan" },
+  { text: "Strength comes from struggle. When you learn to see your struggles as opportunities to become stronger, better, wiser, then your thinking shifts from ‘I can’t do this’ to ‘I must do this’.", author: "Toni Sorensen" },
+  { text: "That’s the beauty of coaching. You get to touch lives. You get to make a difference.", author: "Morgan Wootten" },
+  { text: "The art of coaching is knowing when to teach and when to inspire.", author: "David Rock" },
+  { text: "The best coaches never tell their athletes that they are wrong. They rather focus on creating awareness.", author: "Abhishek Ratna" },
+  { text: "The best coaches really care about people. They have a sincere interest in people.", author: "Byron & Catherine Pulsifer" },
+  { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+  { text: "The challenge for you is to decide not what is important, but what is most important and then focus your attention on that.", author: "Steve Backley" },
+  { text: "The delicate balance of mentoring someone is not creating them in your own image, but giving them the opportunity to create themselves.", author: "Steven Spielberg" },
+  { text: "The discipline of coaching puts the center of its attention on the question of how a person can help other people develop new capabilities, new horizons, and new worlds of opportunity for themselves and those around them.", author: "Chauncey Bell" },
+  { text: "The distance between your dreams and reality is called action.", author: "Unknown" },
+  { text: "The goal of a life coach is to help the client become who they really are by shading who they are not.", author: "Aiyaz Uddin" },
+  { text: "The good coach knows that they may not have all the answers.", author: "Steve Gold" },
+  { text: "The greatest tragedy in life is not death, but a life without a purpose.", author: "Myles Munroe" },
+  { text: "The interesting thing about coaching is that you have to trouble the comfortable, and comfort the troubled.", author: "Ric Charlesworth" },
+  { text: "The mind, once stretched by a new idea, never returns to its original dimensions.", author: "Ralph Waldo Emerson" },
+  { text: "The most important thing is transforming our minds, for a new way of thinking, a new outlook: we should strive to develop a new inner world.", author: "Dalai Lama" },
+  { text: "The only thing standing between you and your goal is the story you keep telling yourself as to why you can’t achieve it.", author: "Jordan Belfort" },
+  { text: "The purpose of coaching is to close the gap between potential and performance.", author: "Keith Webb" },
+  { text: "There is no better life coach then LIFE, you attend class everyday, all you have to do is listen to the message", author: "Carl Henegan" },
+  { text: "The role of leaders in a coaching culture is to foster an environment of trust, collaboration, and continuous learning.", author: "John Mattone" },
+  { text: "The test of a good coach is that when they leave, others will carry on successfully.", author: "Unknown" },
+  { text: "To create a high-performance team, we must replace typical management activities like supervising, checking, monitoring, and controlling with new behaviors like coaching and communicating.", author: "Ray Smith" },
+  { text: "To have long term success as a coach or in any position of leadership, you have to be obsessed in some way.", author: "Pat Riley" },
+  { text: "Transformational coaching enables people to become aware of what stops them from getting going and what gets them going.", author: "Jack Canfield" },
+  { text: "Treat a person as he is, and he will remain as he is. Treat him as he could be, and he will become what he should be.", author: "Jimmy Johnson" },
+  { text: "Ultimately, we are moved to action only by emotion. That's because action is emotion.", author: "Mark Manson" },
+  { text: "Understanding how the brain works in social situations is like having a cheat sheet for human behaviour. This empowers coaches to facilitate growth at a whole new level.", author: "Manie Bosman" },
+  { text: "Unless you try to do something beyond what you have already mastered, you will never grow.", author: "Ralph Waldo Emerson" },
+  { text: "What do you do with a mistake: recognize it, admit it, learn from it, forget it.", author: "Dean Smith" },
+  { text: "We all need people who will give us feedback. That's how we improve. A coach does that.", author: "Sheryl Sandberg" },
+  { text: "We have done lots of research over the past three years, and we have found that leaders who have the best coaching skills have better business results.", author: "Tanya Clemens" },
+  { text: "What makes a good coach? Complete dedication.", author: "George Halas" },
+  { text: "What we can control is our performance and our execution, and that’s what we’re going to focus on.", author: "Bill Belichick" },
+  { text: "When you are in touch with your 'why', then you can lean on it as a reminder that what you’re doing is more important than any one disappointment. When we help our clients reach their goals, we change the world.", author: "Candy Motzek" },
+  { text: "When you encourage others, you in the process are being encouraged because you’re making a commitment to that person’s life. Encouragement really does make a difference.", author: "Zig Ziglar" },
+  { text: "When you learn how to pause, take a moment, and appreciate your own wins you take a major step toward boosting your self-confidence, achieving your goals and reaching your dreams.", author: "Candy Motzek" },
+  { text: "Who, exactly, seeks out a coach? If you ask a coach the answer is usually the same: Winners who want even more out of life.", author: "Abigail Pickus" },
+  { text: "Who looks outside, dreams; who looks inside, awakes.", author: "Carl Jung" },
+  { text: "Winning doesn’t always mean being first. Winning means you’re doing better than you’ve done before.", author: "Bonnie Blair" },
+  { text: "Withholding feedback is choosing comfort over growth. Staying silent deprives people of the opportunity to learn.", author: "Adam Grant" },
+  { text: "With the right kind of coaching and determination you can accomplish anything.", author: "Reese Witherspoon" },
+  { text: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
+  { text: "You cannot be a light to others or yourself, if you have dark intentions in your heart.", author: "Kemi Sogunle" },
+  { text: "You can see and you can listen, but you have to have moments in which you feel.", author: "Mike Krzyzewski" },
+  { text: "You don’t have to be great to get started but you have to get started to be great.", author: "Les Brown" },
+  { text: "You get the best effort from others not by lighting a fire beneath them, but by building a fire within.", author: "Bob Nelson" },
+  { text: "You seek too much information and not enough transformation.", author: "Sai Baba" },
+  { text: "You will never change your life until you change something you do daily. The secret of your success is found in your daily routine.", author: "John C. Maxwell" },
+  { text: "Change is the law of life. And those who look only to the past or present are certain to miss the future.", author: "John F. Kennedy" },
+  { text: "Change will not come if we wait for some other person or some other time. We are the ones we've been waiting for. We are the change that we seek.", author: "Barack Obama" },
+  { text: "Character matters; leadership descends from character.", author: "Rush Limbaugh" },
+  { text: "Charisma becomes the undoing of leaders. It makes them inflexible, convinced of their own infallibility, unable to change.", author: "Peter Drucker" },
+  { text: "Dictators ride to and fro upon tigers which they dare not dismount. And the tigers are getting hungry.", author: "Winston Churchill" },
+  { text: "Dissatisfaction and discouragement are not caused by the absence of things but the absence of vision.", author: "Anonymous" },
+  { text: "Do not follow where the path may lead. Go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson OR Harold R. McAlindon" },
+  { text: "Don’t necessarily avoid sharp edges. Occasionally they are necessary to leadership.", author: "Donald Rumsfeld" },
+  { text: "Don't tell people how to do things, tell them what to do and let them surprise you with their results.", author: "George S. Patton" },
+  { text: "Don’t waste your energy trying to educate or change opinions; go over, under, through, and opinions will change organically when you’re the boss. Or they won’t.", author: "Jim Collins" },
+  { text: "The price of greatness is responsibility.", author: "Winston Churchill" },
+  { text: "The problem with being a leader is that you’re never sure if you’re being followed or chased.", author: "Claire A. Murray" }
+];
 
-  document.querySelectorAll(".phase-btn").forEach(b => b.classList.remove("selected"));
-  btn.classList.add("selected");
+function setPhase(val, btn) {
+  if (phase === val) {
+    phase = "";
+    document.getElementById("phase").value = "";
+    btn.classList.remove("selected");
+  } else {
+    phase = val;
+    document.getElementById("phase").value = val;
+    document.querySelectorAll(".phase-btn").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+  }
 
   generate();
 }
 
-document.querySelectorAll('.holland-option input').forEach(box=>{
-  box.addEventListener("change",()=>{
+document.querySelectorAll('.holland-option input').forEach(box => {
+  box.addEventListener("change", () => {
     const val = box.value;
 
-    if(box.checked){
-      if(hollandOrder.length >=3){
+    if (box.checked) {
+      if (hollandOrder.length >= 3) {
         box.checked = false;
         return;
       }
       hollandOrder.push(val);
     } else {
-      hollandOrder = hollandOrder.filter(v=>v!==val);
+      hollandOrder = hollandOrder.filter(v => v !== val);
     }
 
     updateRanks();
@@ -289,37 +661,38 @@ document.querySelectorAll('.holland-option input').forEach(box=>{
   });
 });
 
-function updateRanks(){
-  document.querySelectorAll('.holland-option').forEach(opt=>{
+function updateRanks() {
+  document.querySelectorAll('.holland-option').forEach(opt => {
     const val = opt.querySelector("input").value;
     const rank = opt.querySelector(".rank");
     const pill = opt.querySelector(".holland-pill");
     const i = hollandOrder.indexOf(val);
 
-    if(i>=0){
-      rank.textContent = "#"+(i+1);
+    if (i >= 0) {
+      rank.textContent = "#" + (i + 1);
       pill.classList.add("has-rank");
     } else {
-      rank.textContent="";
+      rank.textContent = "";
       pill.classList.remove("has-rank");
     }
   });
 }
 
-function build(title,val){
-  return val ? `\n\n${title}:\n${val}` : "";
+function build(title, val) {
+  const cleaned = val.trim();
+  return cleaned ? `\n\n${title}:\n${cleaned}` : "";
 }
 
-function generate(){
+function generate() {
   let result = `Top 3 Careers:
-1. ${career1.value}
-2. ${career2.value}
-3. ${career3.value}`;
+1. ${career1.value.trim()}
+2. ${career2.value.trim()}
+3. ${career3.value.trim()}`;
 
   result += build("First Choice Summer Program", summer.value);
   result += build("Phase", phase);
   result += build("Top 3 Holland Codes",
-    hollandOrder.map((c,i)=>`${i+1}. ${c}`).join("\n")
+    hollandOrder.map((c, i) => `${i + 1}. ${c}`).join("\n")
   );
   result += build("Interests", interests.value);
   result += build("Resources", resources.value);
@@ -329,24 +702,69 @@ function generate(){
   output.innerText = result;
 }
 
-function copyText(){
-  navigator.clipboard.writeText(output.innerText);
-  alert("Copied!");
+async function copyText() {
+  try {
+    await navigator.clipboard.writeText(output.innerText);
+    alert("Copied!");
+  } catch (err) {
+    alert("Copy failed. Please copy the blue box manually.");
+  }
 }
 
-function clearForm(){
-  document.querySelectorAll("input, textarea").forEach(el=>el.value="");
-  hollandOrder=[];
-  phase="";
+function clearForm() {
+  document.querySelectorAll("input, textarea").forEach(el => el.value = "");
+  hollandOrder = [];
+  phase = "";
 
-  document.querySelectorAll(".phase-btn").forEach(b=>b.classList.remove("selected"));
-  document.querySelectorAll('.holland-option input').forEach(b=>b.checked=false);
+  document.querySelectorAll(".phase-btn").forEach(b => b.classList.remove("selected"));
+  document.querySelectorAll('.holland-option input').forEach(b => b.checked = false);
 
   updateRanks();
   generate();
+  refreshQuotes();
 }
 
+function getRandomUniqueQuotes(count, excludeQuotes = []) {
+  const availableQuotes = quotes.filter(q =>
+    !excludeQuotes.some(ex => ex.text === q.text && ex.author === q.author)
+  );
+
+  const shuffled = [...availableQuotes].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
+function quoteCardHTML(quote) {
+  return `
+    <div class="quote-card">
+      <div class="quote-text">“${quote.text}”</div>
+      <div class="quote-author">— ${quote.author}</div>
+    </div>
+  `;
+}
+
+function renderQuotes() {
+  const leftCount = Math.random() < 0.5 ? 1 : 2;
+  const rightCount = Math.random() < 0.5 ? 1 : 2;
+
+  const leftSelected = getRandomUniqueQuotes(leftCount);
+  const rightSelected = getRandomUniqueQuotes(rightCount, leftSelected);
+
+  document.getElementById("leftQuotes").innerHTML = leftSelected
+    .map(quote => quoteCardHTML(quote))
+    .join("");
+
+  document.getElementById("rightQuotes").innerHTML = rightSelected
+    .map(quote => quoteCardHTML(quote))
+    .join("");
+}
+
+function refreshQuotes() {
+  renderQuotes();
+}
+
+updateRanks();
 generate();
+refreshQuotes();
 </script>
 
 </body>
