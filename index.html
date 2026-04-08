@@ -1,466 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Summer Coaching Notes Generator</title>
-  <style>
-    * { box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Coaching Notes Generator</title>
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6fb;
-      padding: 30px;
-      margin: 0;
-      color: #1f2937;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    .container {
-      max-width: 1150px;
-      margin: auto;
-      background: white;
-      padding: 28px;
-      border-radius: 14px;
-      box-shadow: 0 0 12px rgba(0,0,0,.10);
-    }
+body {
+  font-family: Arial;
+  background: #f4f6fb;
+  padding: 30px;
+  margin: 0;
+}
 
-    h1 {
-      margin-top: 0;
-      color: #124734;
-      text-align: center;
-    }
+.container {
+  max-width: 1150px;
+  margin: auto;
+  background: white;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0,0,0,.1);
+}
 
-    .subtitle {
-      color: #475569;
-      margin-bottom: 22px;
-      line-height: 1.5;
-      text-align: center;
-    }
+h1 { text-align:center; color:#124734; }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-      align-items: start;
-    }
+.layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+}
 
-    @media (max-width: 950px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
+.form-section, .output-section {
+  background: #f9fbff;
+  border: 1px solid #dbe7ff;
+  border-radius: 14px;
+  padding: 20px;
+}
 
-    .form-section,
-    .output-section {
-      background: #f9fbff;
-      border: 1px solid #dbe7ff;
-      border-radius: 14px;
-      padding: 20px;
-    }
+label { font-weight:700; margin-top:12px; display:block; }
 
-    label {
-      display: block;
-      margin-top: 12px;
-      margin-bottom: 6px;
-      font-weight: 700;
-    }
+input, textarea {
+  width:100%;
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+}
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 14px;
-      font-family: Arial, sans-serif;
-    }
+textarea { min-height:90px; }
 
-    textarea {
-      resize: vertical;
-      min-height: 90px;
-    }
+.bluebox {
+  background:#dbe8f7;
+  padding:20px;
+  border-radius:10px;
+  white-space:pre-wrap;
+  min-height:650px;
+}
 
-    .small-note {
-      font-size: 13px;
-      color: #64748b;
-      margin-top: 4px;
-      line-height: 1.4;
-    }
+.button-row {
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:10px;
+  margin-top:18px;
+}
 
-    .button-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
+button {
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
 
-    @media (max-width: 850px) {
-      .button-row {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+.copy-btn { background:#0f766e; }
+.clear-btn { background:#dc2626; }
+.print-btn { background:#64748b; }
 
-    button {
-      border: none;
-      padding: 12px 14px;
-      border-radius: 8px;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 14px;
-    }
+.holland-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:10px;
+}
 
-    .generate-btn { background: #2563eb; }
-    .copy-btn { background: #0f766e; }
-    .clear-btn { background: #dc2626; }
-    .print-btn { background: #64748b; }
+.holland-option input { display:none; }
 
-    .generate-btn:hover { background: #1d4ed8; }
-    .copy-btn:hover { background: #115e59; }
-    .clear-btn:hover { background: #b91c1c; }
-    .print-btn:hover { background: #475569; }
+.holland-pill {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:10px;
+  border-radius:999px;
+  border:2px solid #94a3b8;
+  background:white;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
 
-    .bluebox {
-      background: #dbe8f7;
-      padding: 20px;
-      border-radius: 10px;
-      white-space: pre-wrap;
-      min-height: 650px;
-      border: 1px solid #bfd3ea;
-      line-height: 1.65;
-      font-size: 15px;
-    }
+.holland-pill:hover {
+  background:#e0f2fe;
+}
 
-    .site-logo {
-      display: block;
-      margin: 0 auto 18px auto;
-      max-width: 420px;
-      width: 100%;
-      height: auto;
-    }
+.holland-option input:checked + .holland-pill {
+  background:#2563eb;
+  color:white;
+  border-color:#1d4ed8;
+}
 
-    .holland-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 12px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
+/* RANK */
+.rank {
+  display:none;
+  background:rgba(255,255,255,.25);
+  padding:2px 6px;
+  border-radius:999px;
+  font-size:12px;
+}
 
-    .holland-header .label-title {
-      font-weight: 700;
-    }
+/* SHOW RANK */
+.holland-option input:checked + .holland-pill .rank {
+  display:inline-block;
+  animation: pop .25s ease;
+}
 
-    .holland-counter {
-      font-size: 13px;
-      font-weight: 700;
-      color: #475569;
-      background: #eef4ff;
-      border: 1px solid #dbe7ff;
-      border-radius: 999px;
-      padding: 6px 10px;
-    }
+/* ANIMATION */
+@keyframes pop {
+  0% { transform:scale(.5); opacity:0; }
+  70% { transform:scale(1.2); opacity:1; }
+  100% { transform:scale(1); }
+}
 
-    .holland-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    @media (max-width: 700px) {
-      .holland-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    .holland-option {
-      position: relative;
-      display: block;
-      cursor: pointer;
-    }
-
-    .holland-option input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-      width: 0;
-      height: 0;
-    }
-
-    .holland-pill {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 46px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
-      color: #1f2937;
-      font-size: 14px;
-      font-weight: 700;
-      transition: all 0.15s ease;
-      user-select: none;
-    }
-
-    .holland-option input[type="checkbox"]:checked + .holland-pill {
-      background: #2563eb;
-      color: white;
-      border-color: #2563eb;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.22);
-    }
-
-    .holland-option input[type="checkbox"]:disabled + .holland-pill {
-      background: #f8fafc;
-      color: #94a3b8;
-      border-color: #e2e8f0;
-      cursor: not-allowed;
-    }
-
-    .selection-note {
-      font-size: 13px;
-      color: #64748b;
-      margin-top: 8px;
-      line-height: 1.4;
-    }
-
-    @media print {
-      body {
-        background: white;
-        padding: 0;
-      }
-
-      .form-section,
-      .button-row,
-      h1,
-      .subtitle,
-      .site-logo {
-        display: none !important;
-      }
-
-      .container,
-      .output-section {
-        box-shadow: none;
-        border: none;
-        padding: 0;
-      }
-
-      .bluebox {
-        background: white;
-        border: none;
-        padding: 0;
-        min-height: auto;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <img src="logo.png" class="site-logo" alt="Summer Coaching Notes Generator Logo">
 
-  <div class="container">
-    <h1>Summer Coaching Notes Generator</h1>
-    <div class="subtitle">
-      Type into the fields on the left. The formatted notes appear on the right and update automatically.
-      Avoid using participant last names for client privacy and data protection.
-    </div>
+<div class="container">
+<h1>Summer Coaching Notes Generator</h1>
 
-    <div class="layout">
-      <div class="form-section">
-        <label for="career1">Top Career #1</label>
-        <input id="career1" type="text" oninput="generate()">
+<div class="layout">
 
-        <label for="career2">Top Career #2</label>
-        <input id="career2" type="text" oninput="generate()">
+<div class="form-section">
 
-        <label for="career3">Top Career #3</label>
-        <input id="career3" type="text" oninput="generate()">
+<label>Top Career #1</label>
+<input id="career1" oninput="generate()">
 
-        <label for="summer">First Choice Summer Program</label>
-        <textarea id="summer" oninput="generate()"></textarea>
+<label>Top Career #2</label>
+<input id="career2" oninput="generate()">
 
-        <label for="phase">Phase (Discovery or Engagement + explanations)</label>
-        <input id="phase" type="text" oninput="generate()">
+<label>Top Career #3</label>
+<input id="career3" oninput="generate()">
 
-        <div class="holland-header">
-          <div class="label-title">Top 3 Holland Codes</div>
-          <div class="holland-counter" id="hollandCounter">0 of 3 selected</div>
-        </div>
+<label>First Choice Summer Program</label>
+<textarea id="summer" oninput="generate()"></textarea>
 
-        <div class="holland-grid">
-          <label class="holland-option">
-            <input type="checkbox" name="holland" value="Realistic">
-            <span class="holland-pill">Realistic</span>
-          </label>
+<label>Phase</label>
+<input id="phase" oninput="generate()">
 
-          <label class="holland-option">
-            <input type="checkbox" name="holland" value="Investigative">
-            <span class="holland-pill">Investigative</span>
-          </label>
+<label>Top 3 Holland Codes</label>
 
-          <label class="holland-option">
-            <input type="checkbox" name="holland" value="Artistic">
-            <span class="holland-pill">Artistic</span>
-          </label>
+<div class="holland-grid">
 
-          <label class="holland-option">
-            <input type="checkbox" name="holland" value="Social">
-            <span class="holland-pill">Social</span>
-          </label>
+<label class="holland-option">
+<input type="checkbox" value="Realistic">
+<span class="holland-pill"><span class="rank"></span>Realistic</span>
+</label>
 
-          <label class="holland-option">
-            <input type="checkbox" name="holland" value="Enterprising">
-            <span class="holland-pill">Enterprising</span>
-          </label>
+<label class="holland-option">
+<input type="checkbox" value="Investigative">
+<span class="holland-pill"><span class="rank"></span>Investigative</span>
+</label>
 
-          <label class="holland-option">
-            <input type="checkbox" name="holland" value="Conventional">
-            <span class="holland-pill">Conventional</span>
-          </label>
-        </div>
+<label class="holland-option">
+<input type="checkbox" value="Artistic">
+<span class="holland-pill"><span class="rank"></span>Artistic</span>
+</label>
 
-        <div class="selection-note">Choose up to 3. Output stays in RIASEC order.</div>
+<label class="holland-option">
+<input type="checkbox" value="Social">
+<span class="holland-pill"><span class="rank"></span>Social</span>
+</label>
 
-        <label for="interests">Interests, Clubs, Sports</label>
-        <textarea id="interests" oninput="generate()"></textarea>
-        <div class="small-note">Use Enter to separate items onto different lines.</div>
+<label class="holland-option">
+<input type="checkbox" value="Enterprising">
+<span class="holland-pill"><span class="rank"></span>Enterprising</span>
+</label>
 
-        <label for="resources">Resources Shared</label>
-        <textarea id="resources" oninput="generate()"></textarea>
-        <div class="small-note">Use Enter to separate items onto different lines.</div>
+<label class="holland-option">
+<input type="checkbox" value="Conventional">
+<span class="holland-pill"><span class="rank"></span>Conventional</span>
+</label>
 
-        <label for="next">Next Step</label>
-        <textarea id="next" oninput="generate()"></textarea>
+</div>
 
-        <label for="summary">Goals and Coaching Summary - Avoid using participant last names for client privacy and data protection.</label>
-        <textarea id="summary" style="min-height:220px;" oninput="generate()"></textarea>
+<label>Interests</label>
+<textarea id="interests" oninput="generate()"></textarea>
 
-        <div class="button-row">
-          <button type="button" class="generate-btn" onclick="generate()">Generate Notes</button>
-          <button type="button" class="copy-btn" onclick="copyText()">Copy Notes</button>
-          <button type="button" class="clear-btn" onclick="clearForm()">Clear Form</button>
-          <button type="button" class="print-btn" onclick="window.print()">Print</button>
-        </div>
-      </div>
+<label>Resources</label>
+<textarea id="resources" oninput="generate()"></textarea>
 
-      <div class="output-section">
-        <div class="bluebox" id="output">Your formatted notes will appear here.</div>
-      </div>
-    </div>
-  </div>
+<label>Next Step</label>
+<textarea id="next" oninput="generate()"></textarea>
 
-  <script>
-    const hollandOrder = [
-      "Realistic",
-      "Investigative",
-      "Artistic",
-      "Social",
-      "Enterprising",
-      "Conventional"
-    ];
+<label>Summary</label>
+<textarea id="summary" oninput="generate()"></textarea>
 
-    function buildSection(title, value) {
-      const cleaned = value.trim();
-      if (cleaned === "") return "";
-     return `\n\n${title}:\n${cleaned}`;
-    }
+<div class="button-row">
+<button class="copy-btn" onclick="copyText()">Copy</button>
+<button class="clear-btn" onclick="clearForm()">Clear</button>
+<button class="print-btn" onclick="window.print()">Print</button>
+</div>
 
-    function getSelectedHollandCodes() {
-      const checked = Array.from(document.querySelectorAll('input[name="holland"]:checked'))
-        .map(box => box.value);
+</div>
 
-      return hollandOrder.filter(code => checked.includes(code));
-    }
+<div class="output-section">
+<div id="output" class="bluebox"></div>
+</div>
 
-    function updateHollandUI() {
-      const allBoxes = Array.from(document.querySelectorAll('input[name="holland"]'));
-      const checkedBoxes = allBoxes.filter(box => box.checked);
-      const selectedCount = checkedBoxes.length;
+</div>
+</div>
 
-      document.getElementById("hollandCounter").innerText = selectedCount + " of 3 selected";
+<script>
 
-      allBoxes.forEach(box => {
-        box.disabled = !box.checked && selectedCount >= 3;
-      });
-    }
+let hollandSelectionOrder = [];
 
-    function generate() {
-      const career1 = document.getElementById("career1").value.trim();
-      const career2 = document.getElementById("career2").value.trim();
-      const career3 = document.getElementById("career3").value.trim();
-      const summer = document.getElementById("summer").value.trim();
-      const phase = document.getElementById("phase").value.trim();
-      const holland = getSelectedHollandCodes().join(", ");
-      const interests = document.getElementById("interests").value.trim();
-      const resources = document.getElementById("resources").value.trim();
-      const next = document.getElementById("next").value.trim();
-      const summary = document.getElementById("summary").value.trim();
+document.querySelectorAll('.holland-option input').forEach(box=>{
+  box.addEventListener("change",()=>{
 
-      let result = `Top 3 Careers:
-1. ${career1}
-2. ${career2}
-3. ${career3}`;
+    const val = box.value;
 
-      result += buildSection("First Choice Summer Program", summer);
-      result += buildSection("Phase", phase);
-      result += buildSection("Top 3 Holland Codes", holland);
-      result += buildSection("Interests, Clubs, Sports", interests);
-      result += buildSection("Resources Shared", resources);
-      result += buildSection("Next Step", next);
-      result += buildSection("Goals and Coaching Summary", summary);
-
-      document.getElementById("output").innerText = result;
-    }
-
-    async function copyText() {
-      const text = document.getElementById("output").innerText;
-
-      try {
-        await navigator.clipboard.writeText(text);
-        alert("Notes copied!");
-      } catch (err) {
-        alert("Copy failed. Please highlight the blue box and copy manually.");
-      }
-    }
-
-    function clearForm() {
-      const ids = [
-        "career1",
-        "career2",
-        "career3",
-        "summer",
-        "phase",
-        "interests",
-        "resources",
-        "next",
-        "summary"
-      ];
-
-      ids.forEach(id => {
-        document.getElementById(id).value = "";
-      });
-
-      document.querySelectorAll('input[name="holland"]').forEach(box => {
+    if(box.checked){
+      if(hollandSelectionOrder.length >=3){
         box.checked = false;
-        box.disabled = false;
-      });
-
-      updateHollandUI();
-      generate();
+        return;
+      }
+      hollandSelectionOrder.push(val);
+    } else {
+      hollandSelectionOrder = hollandSelectionOrder.filter(v=>v!==val);
     }
 
-    document.querySelectorAll('input[name="holland"]').forEach(box => {
-      box.addEventListener("change", function () {
-        updateHollandUI();
-        generate();
-      });
-    });
-
-    updateHollandUI();
+    updateRanks();
     generate();
-  </script>
+  });
+});
+
+function updateRanks(){
+  document.querySelectorAll('.holland-option').forEach(opt=>{
+    const val = opt.querySelector("input").value;
+    const rank = opt.querySelector(".rank");
+    const index = hollandSelectionOrder.indexOf(val);
+
+    if(index >= 0){
+      rank.textContent = `#${index+1}`;
+    } else {
+      rank.textContent = "";
+    }
+  });
+}
+
+function build(title,val){
+  return val.trim() ? `\n\n${title}:\n${val}` : "";
+}
+
+function generate(){
+
+  const holland = hollandSelectionOrder.length
+    ? hollandSelectionOrder.map((c,i)=>`${i+1}. ${c}`).join("\n")
+    : "";
+
+  let result = `Top 3 Careers:
+1. ${career1.value}
+2. ${career2.value}
+3. ${career3.value}`;
+
+  result += build("First Choice Summer Program", summer.value);
+  result += build("Phase", phase.value);
+  result += build("Top 3 Holland Codes", holland);
+  result += build("Interests", interests.value);
+  result += build("Resources", resources.value);
+  result += build("Next Step", next.value);
+  result += build("Summary", summary.value);
+
+  output.innerText = result;
+}
+
+function copyText(){
+  navigator.clipboard.writeText(output.innerText);
+  alert("Copied!");
+}
+
+function clearForm(){
+  document.querySelectorAll("input, textarea").forEach(e=>e.value="");
+  document.querySelectorAll(".holland-option input").forEach(e=>e.checked=false);
+  hollandSelectionOrder = [];
+  updateRanks();
+  generate();
+}
+
+generate();
+
+</script>
+
 </body>
 </html>
