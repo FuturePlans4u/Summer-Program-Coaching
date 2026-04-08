@@ -16,6 +16,13 @@ body {
   color: #1f2937;
 }
 
+/* ✅ LOGO STYLE (correct place now) */
+.site-logo {
+  display: block;
+  margin: 20px auto;
+  max-width: 420px;
+}
+
 .container {
   max-width: 1150px;
   margin: auto;
@@ -35,13 +42,6 @@ h1 {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 28px;
-  align-items: start;
-}
-
-@media (max-width: 950px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
 }
 
 .form-section,
@@ -55,23 +55,18 @@ h1 {
 label {
   font-weight: 700;
   margin-top: 12px;
-  margin-bottom: 6px;
   display: block;
 }
 
-input,
-textarea {
+input, textarea {
   width: 100%;
-  padding: 10px 12px;
+  padding: 10px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
 }
 
 textarea {
   min-height: 90px;
-  resize: vertical;
 }
 
 .bluebox {
@@ -80,427 +75,277 @@ textarea {
   border-radius: 10px;
   white-space: pre-wrap;
   min-height: 650px;
-  line-height: 1.6;
-  border: 1px solid #bfd3ea;
 }
 
 .button-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,1fr);
   gap: 10px;
-  margin-top: 18px;
-}
-
-@media (max-width: 850px) {
-  .button-row {
-    grid-template-columns: 1fr 1fr;
-  }
+  margin-top: 15px;
 }
 
 button {
-  border: none;
   padding: 12px;
   border-radius: 8px;
+  border: none;
   color: white;
-  font-weight: 700;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
 }
 
 .copy-btn { background: #0f766e; }
-.copy-btn:hover { background: #115e59; }
-
 .clear-btn { background: #dc2626; }
-.clear-btn:hover { background: #b91c1c; }
-
 .print-btn { background: #64748b; }
-.print-btn:hover { background: #475569; }
 
+/* Phase */
 .phase-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin-top: 8px;
 }
 
 .phase-btn {
-  background: #ffffff;
-  color: #1f2937;
-  border: 2px solid #94a3b8;
-  border-radius: 8px;
   padding: 12px;
-  font-weight: 700;
+  border: 2px solid #94a3b8;
+  background: white;
   cursor: pointer;
-  transition: 0.2s ease;
-  text-align: center;
-}
-
-.phase-btn:hover {
-  background: #e0f2fe;
-  border-color: #3b82f6;
+  font-weight: bold;
 }
 
 .phase-btn.selected {
   background: #2563eb;
   color: white;
-  border-color: #1d4ed8;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .phase-description {
   margin-top: 10px;
-  padding: 12px;
-  background: #f8fafc;
-  border: 1px solid #dbe7ff;
-  border-radius: 8px;
-  color: #334155;
-  line-height: 1.5;
   font-size: 14px;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-.phase-description strong {
-  color: #1e3a8a;
-}
-
+/* Holland */
 .holland-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,1fr);
   gap: 10px;
-  margin-top: 10px;
 }
 
-.holland-option input {
-  display: none;
-}
+.holland-option input { display:none; }
 
 .holland-pill {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 10px;
-  border-radius: 999px;
   border: 2px solid #94a3b8;
-  background: white;
-  font-weight: 700;
-  cursor: pointer;
-  transition: .2s;
-  color: #1f2937;
+  border-radius: 999px;
+  padding: 10px;
   text-align: center;
-}
-
-.holland-pill:hover {
-  background: #e0f2fe;
-  border-color: #3b82f6;
+  cursor: pointer;
 }
 
 .holland-option input:checked + .holland-pill {
   background: #2563eb;
   color: white;
-  border-color: #1d4ed8;
-}
-
-.holland-option input:disabled + .holland-pill {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .rank {
-  display: none;
-  background: rgba(255,255,255,.25);
-  padding: 2px 6px;
-  border-radius: 999px;
-  font-size: 12px;
-  min-width: 28px;
-  text-align: center;
+  display:none;
 }
 
 .holland-pill.has-rank .rank {
-  display: inline-block;
-  animation: pop .25s ease;
-}
-
-@keyframes pop {
-  0% { transform: scale(.5); opacity: 0; }
-  70% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@media (max-width: 700px) {
-  .holland-grid,
-  .phase-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media print {
-  body {
-    background: white;
-    padding: 0;
-  }
-
-  .form-section,
-  .button-row,
-  h1 {
-    display: none !important;
-  }
-
-  .container,
-  .output-section {
-    box-shadow: none;
-    border: none;
-    padding: 0;
-  }
-
-  .bluebox {
-    background: white;
-    border: none;
-    padding: 0;
-    min-height: auto;
-  }
+  display:inline-block;
 }
 </style>
 </head>
 
 <body>
 
+<!-- ✅ LOGO IN CORRECT PLACE -->
+<img src="logo.png" class="site-logo">
+
 <div class="container">
-  <h1>Summer Coaching Notes Generator</h1>
+<h1>Summer Coaching Notes Generator</h1>
 
-  <div class="layout">
+<div class="layout">
 
-    <div class="form-section">
+<div class="form-section">
 
-      <label for="career1">Top Career #1</label>
-      <input id="career1" oninput="generate()">
+<label>Top Career #1</label>
+<input id="career1" oninput="generate()">
 
-      <label for="career2">Top Career #2</label>
-      <input id="career2" oninput="generate()">
+<label>Top Career #2</label>
+<input id="career2" oninput="generate()">
 
-      <label for="career3">Top Career #3</label>
-      <input id="career3" oninput="generate()">
+<label>Top Career #3</label>
+<input id="career3" oninput="generate()">
 
-      <label for="summer">First Choice Summer Program</label>
-      <textarea id="summer" oninput="generate()"></textarea>
+<label>First Choice Summer Program</label>
+<textarea id="summer" oninput="generate()"></textarea>
 
-      <label>Phase</label>
-      <div class="phase-grid">
-        <button type="button" class="phase-btn" data-phase="Discovery" onclick="selectPhase(this)">Discovery</button>
-        <button type="button" class="phase-btn" data-phase="Engagement" onclick="selectPhase(this)">Engagement</button>
-      </div>
+<label>Phase</label>
+<div class="phase-grid">
+<button class="phase-btn" onclick="setPhase('Discovery', this)">Discovery</button>
+<button class="phase-btn" onclick="setPhase('Engagement', this)">Engagement</button>
+</div>
 
-      <div class="phase-description">
-        <strong>Discovery:</strong> The individual is still exploring potential career interests and identifying what they would like to pursue.<br><br>
-        <strong>Engagement:</strong> The individual is seeking opportunities to engage, gain exposure, and learn more about career options.
-      </div>
+<div class="phase-description">
+<strong>Discovery:</strong> Still exploring career interests.<br><br>
+<strong>Engagement:</strong> Actively learning and engaging in career opportunities.
+</div>
 
-      <input id="phase" type="hidden">
+<input id="phase" type="hidden">
 
-      <label>Top 3 Holland Codes</label>
+<label>Top 3 Holland Codes</label>
+<div class="holland-grid">
 
-      <div class="holland-grid">
-        <label class="holland-option">
-          <input type="checkbox" value="Realistic">
-          <span class="holland-pill"><span class="rank"></span>Realistic</span>
-        </label>
+<label class="holland-option">
+<input type="checkbox" value="Realistic">
+<div class="holland-pill"><span class="rank"></span>Realistic</div>
+</label>
 
-        <label class="holland-option">
-          <input type="checkbox" value="Investigative">
-          <span class="holland-pill"><span class="rank"></span>Investigative</span>
-        </label>
+<label class="holland-option">
+<input type="checkbox" value="Investigative">
+<div class="holland-pill"><span class="rank"></span>Investigative</div>
+</label>
 
-        <label class="holland-option">
-          <input type="checkbox" value="Artistic">
-          <span class="holland-pill"><span class="rank"></span>Artistic</span>
-        </label>
+<label class="holland-option">
+<input type="checkbox" value="Artistic">
+<div class="holland-pill"><span class="rank"></span>Artistic</div>
+</label>
 
-        <label class="holland-option">
-          <input type="checkbox" value="Social">
-          <span class="holland-pill"><span class="rank"></span>Social</span>
-        </label>
+<label class="holland-option">
+<input type="checkbox" value="Social">
+<div class="holland-pill"><span class="rank"></span>Social</div>
+</label>
 
-        <label class="holland-option">
-          <input type="checkbox" value="Enterprising">
-          <span class="holland-pill"><span class="rank"></span>Enterprising</span>
-        </label>
+<label class="holland-option">
+<input type="checkbox" value="Enterprising">
+<div class="holland-pill"><span class="rank"></span>Enterprising</div>
+</label>
 
-        <label class="holland-option">
-          <input type="checkbox" value="Conventional">
-          <span class="holland-pill"><span class="rank"></span>Conventional</span>
-        </label>
-      </div>
+<label class="holland-option">
+<input type="checkbox" value="Conventional">
+<div class="holland-pill"><span class="rank"></span>Conventional</div>
+</label>
 
-      <label for="interests">Interests</label>
-      <textarea id="interests" oninput="generate()"></textarea>
+</div>
 
-      <label for="resources">Resources</label>
-      <textarea id="resources" oninput="generate()"></textarea>
+<label>Interests</label>
+<textarea id="interests" oninput="generate()"></textarea>
 
-      <label for="next">Next Step</label>
-      <textarea id="next" oninput="generate()"></textarea>
+<label>Resources</label>
+<textarea id="resources" oninput="generate()"></textarea>
 
-      <label for="summary">Summary</label>
-      <textarea id="summary" oninput="generate()"></textarea>
+<label>Next Step</label>
+<textarea id="next" oninput="generate()"></textarea>
 
-      <div class="button-row">
-        <button type="button" class="copy-btn" onclick="copyText()">Copy</button>
-        <button type="button" class="clear-btn" onclick="clearForm()">Clear</button>
-        <button type="button" class="print-btn" onclick="window.print()">Print</button>
-      </div>
+<label>Summary</label>
+<textarea id="summary" oninput="generate()"></textarea>
 
-    </div>
+<div class="button-row">
+<button class="copy-btn" onclick="copyText()">Copy</button>
+<button class="clear-btn" onclick="clearForm()">Clear</button>
+<button class="print-btn" onclick="window.print()">Print</button>
+</div>
 
-    <div class="output-section">
-      <div id="output" class="bluebox"></div>
-    </div>
+</div>
 
-  </div>
+<div class="output-section">
+<div id="output" class="bluebox"></div>
+</div>
+
+</div>
 </div>
 
 <script>
-let hollandSelectionOrder = [];
-let selectedPhase = "";
+let phase = "";
+let hollandOrder = [];
 
-document.querySelectorAll('.holland-option input').forEach(box => {
-  box.addEventListener("change", () => {
-    const val = box.value;
+function setPhase(val, btn){
+  phase = val;
+  document.getElementById("phase").value = val;
 
-    if (box.checked) {
-      if (hollandSelectionOrder.length >= 3) {
-        box.checked = false;
-        return;
-      }
-      if (!hollandSelectionOrder.includes(val)) {
-        hollandSelectionOrder.push(val);
-      }
-    } else {
-      hollandSelectionOrder = hollandSelectionOrder.filter(v => v !== val);
-    }
-
-    updateRanks();
-    updateHollandDisabled();
-    generate();
-  });
-});
-
-function selectPhase(button) {
-  const phase = button.dataset.phase;
-  const hiddenPhase = document.getElementById("phase");
-
-  if (selectedPhase === phase) {
-    selectedPhase = "";
-    hiddenPhase.value = "";
-    button.classList.remove("selected");
-  } else {
-    selectedPhase = phase;
-    hiddenPhase.value = phase;
-
-    document.querySelectorAll(".phase-btn").forEach(btn => {
-      btn.classList.remove("selected");
-    });
-
-    button.classList.add("selected");
-  }
+  document.querySelectorAll(".phase-btn").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
 
   generate();
 }
 
-function updateRanks() {
-  document.querySelectorAll('.holland-option').forEach(opt => {
+document.querySelectorAll('.holland-option input').forEach(box=>{
+  box.addEventListener("change",()=>{
+    const val = box.value;
+
+    if(box.checked){
+      if(hollandOrder.length >=3){
+        box.checked = false;
+        return;
+      }
+      hollandOrder.push(val);
+    } else {
+      hollandOrder = hollandOrder.filter(v=>v!==val);
+    }
+
+    updateRanks();
+    generate();
+  });
+});
+
+function updateRanks(){
+  document.querySelectorAll('.holland-option').forEach(opt=>{
     const val = opt.querySelector("input").value;
     const rank = opt.querySelector(".rank");
     const pill = opt.querySelector(".holland-pill");
-    const index = hollandSelectionOrder.indexOf(val);
+    const i = hollandOrder.indexOf(val);
 
-    if (index >= 0) {
-      rank.textContent = `#${index + 1}`;
+    if(i>=0){
+      rank.textContent = "#"+(i+1);
       pill.classList.add("has-rank");
     } else {
-      rank.textContent = "";
+      rank.textContent="";
       pill.classList.remove("has-rank");
     }
   });
 }
 
-function updateHollandDisabled() {
-  const boxes = document.querySelectorAll('.holland-option input');
-
-  boxes.forEach(box => {
-    box.disabled = !box.checked && hollandSelectionOrder.length >= 3;
-  });
+function build(title,val){
+  return val ? `\n\n${title}:\n${val}` : "";
 }
 
-function build(title, val) {
-  return val.trim() ? `\n\n${title}:\n${val}` : "";
-}
-
-function generate() {
-  const career1 = document.getElementById("career1").value;
-  const career2 = document.getElementById("career2").value;
-  const career3 = document.getElementById("career3").value;
-  const summer = document.getElementById("summer").value;
-  const phase = document.getElementById("phase").value;
-  const interests = document.getElementById("interests").value;
-  const resources = document.getElementById("resources").value;
-  const next = document.getElementById("next").value;
-  const summary = document.getElementById("summary").value;
-  const output = document.getElementById("output");
-
-  const holland = hollandSelectionOrder.length
-    ? hollandSelectionOrder.map((c, i) => `${i + 1}. ${c}`).join("\n")
-    : "";
-
+function generate(){
   let result = `Top 3 Careers:
-1. ${career1}
-2. ${career2}
-3. ${career3}`;
+1. ${career1.value}
+2. ${career2.value}
+3. ${career3.value}`;
 
-  result += build("First Choice Summer Program", summer);
+  result += build("First Choice Summer Program", summer.value);
   result += build("Phase", phase);
-  result += build("Top 3 Holland Codes", holland);
-  result += build("Interests", interests);
-  result += build("Resources", resources);
-  result += build("Next Step", next);
-  result += build("Summary", summary);
+  result += build("Top 3 Holland Codes",
+    hollandOrder.map((c,i)=>`${i+1}. ${c}`).join("\n")
+  );
+  result += build("Interests", interests.value);
+  result += build("Resources", resources.value);
+  result += build("Next Step", next.value);
+  result += build("Summary", summary.value);
 
   output.innerText = result;
 }
 
-function copyText() {
-  navigator.clipboard.writeText(document.getElementById("output").innerText);
+function copyText(){
+  navigator.clipboard.writeText(output.innerText);
   alert("Copied!");
 }
 
-function clearForm() {
-  document.getElementById("career1").value = "";
-  document.getElementById("career2").value = "";
-  document.getElementById("career3").value = "";
-  document.getElementById("summer").value = "";
-  document.getElementById("phase").value = "";
-  document.getElementById("interests").value = "";
-  document.getElementById("resources").value = "";
-  document.getElementById("next").value = "";
-  document.getElementById("summary").value = "";
+function clearForm(){
+  document.querySelectorAll("input, textarea").forEach(el=>el.value="");
+  hollandOrder=[];
+  phase="";
 
-  hollandSelectionOrder = [];
-  selectedPhase = "";
-
-  document.querySelectorAll(".phase-btn").forEach(btn => {
-    btn.classList.remove("selected");
-  });
-
-  document.querySelectorAll(".holland-option input").forEach(box => {
-    box.checked = false;
-    box.disabled = false;
-  });
+  document.querySelectorAll(".phase-btn").forEach(b=>b.classList.remove("selected"));
+  document.querySelectorAll('.holland-option input').forEach(b=>b.checked=false);
 
   updateRanks();
-  updateHollandDisabled();
   generate();
 }
 
-updateRanks();
-updateHollandDisabled();
 generate();
 </script>
 
